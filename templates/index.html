@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/svg+xml" href="./static/icons/logo.png" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+
+    <title>Imlo lug`at</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <header></header>
+
+      <div class="main-container__main">
+        <form>
+          <input name="search" type="text" required placeholder="So`z qidiring..." {% if search %} value="{{ search }}" {% endif %} id="search"  />
+          <button>
+            <img src="{% static 'icons/ico-search.png' %}" alt="seach-button-ico" />
+          </button>
+        </form>
+
+        <div class="answers">
+          <div class="main-container__main__correct-answers">
+            <ul style="list-style-image: url({% static 'icons/correct-mark.png' %});">
+              <!--style="align-items: center" -->
+              {% if correct_word == 'soz_yoq' %}
+                <li>Siz kiritgan so'zda 'Xx' yoki 'Yy' mavud emas!</li>
+              {% elif search == '' %}
+
+              {% elif correct_word %}
+                <li>{{ correct_word }}</li>
+              {% elif correct_word == 'Mavjud emas!'  %}
+                <li>{{ correct_word }}</li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="main-container__main__incorrect-answers">
+            <ul style="list-style-image: url({% static 'icons/incorrect-mark.png' %});">
+              {% if incorrect_words %}
+                {% for incorrect in incorrect_words %}
+                  <li>{{ incorrect }}</li>
+                {% endfor %}
+              {% elif correct_word == 'soz_yoq' %}
+                <li>Siz kiritgan so'zda 'Xx' yoki 'Yy' mavud emas!</li>
+              {% elif search == False %}
+
+              {% elif correct_word == 'Mavjud emas!'  %}
+                <li>{{ correct_word }}</li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer></footer>
+    </div>
+  </body>
+</html>
