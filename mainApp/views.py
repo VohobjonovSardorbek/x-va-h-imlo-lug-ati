@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from .models import *
 
+
 class Home_view(View):
     def get(self, request):
         search = request.GET.get('search')
@@ -17,7 +18,7 @@ class Home_view(View):
                 incorrects = Incorrect.objects.filter(word=search.lower())
                 if incorrects.exists():
                     incorrect_word = incorrects.first()
-                    correct_word =  incorrect_word.correct
+                    correct_word = incorrect_word.correct
                     incorrect_words = Incorrect.objects.filter(correct=correct_word)
                 else:
                     if 'x' not in search.lower() and 'h' not in search.lower() and search.lower() != '':
@@ -27,9 +28,9 @@ class Home_view(View):
                     else:
                         correct_word = 'Mavjud emas!'
         context = {
-            "correct_word" : correct_word,
-            "incorrect_words" : incorrect_words,
-            "search" : search,
+            "correct_word": correct_word,
+            "incorrect_words": incorrect_words,
+            "search": search,
         }
         return render(request, 'index.html', context=context)
 
